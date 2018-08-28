@@ -1,12 +1,11 @@
-package Example;
+package ch.hephaistos.utilities.loki.util.example;
 
-import ch.rs.reflectorgrid.ReflectorGrid;
-import ch.rs.reflectorgrid.util.DefaultFieldNamingStrategy;
-import ch.rs.reflectorgrid.util.LabelDisplayOrder;
-import ch.rs.reflectorgrid.util.interfaces.ChangeListener;
+import ch.hephaistos.utilities.loki.ReflectorGrid;
+import ch.hephaistos.utilities.loki.util.DefaultFieldNamingStrategy;
+import ch.hephaistos.utilities.loki.util.LabelDisplayOrder;
+import ch.hephaistos.utilities.loki.util.interfaces.ChangeListener;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Field;

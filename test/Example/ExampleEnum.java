@@ -1,9 +1,5 @@
-package Example;
+package ch.hephaistos.utilities.loki.util.example;
 
-/**
- *
- * @author Ricardo
- */
 public enum ExampleEnum {
     FULL, HALF, ZERO
 }

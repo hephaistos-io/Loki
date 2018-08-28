@@ -1,7 +1,8 @@
-package Example;
+package ch.hephaistos.utilities.loki.util.example;
 
-import ch.rs.reflectorgrid.util.annotations.TransferGrid;
-import ch.rs.reflectorgrid.util.interfaces.ObjectChangeListener;
+
+import ch.hephaistos.utilities.loki.util.annotations.TransferGrid;
+import ch.hephaistos.utilities.loki.util.interfaces.ObjectChangeListener;
 
 import java.lang.reflect.Field;
 

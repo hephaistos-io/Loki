@@ -1,11 +1,7 @@
-package Example;
+package ch.hephaistos.utilities.loki.util.example;
 
-import ch.rs.reflectorgrid.util.annotations.TransferGrid;
+import ch.hephaistos.utilities.loki.util.annotations.TransferGrid;
 
-/**
- *
- * @author Ricardo
- */
 public class ExampleDataObject {
 
     @TransferGrid

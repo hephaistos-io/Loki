@@ -1,11 +1,8 @@
-package Example;
+package ch.hephaistos.utilities.loki.util.example;
 
-import ch.rs.reflectorgrid.util.annotations.TransferGrid;
 
-/**
- *
- * @author Ricardo
- */
+import ch.hephaistos.utilities.loki.util.annotations.TransferGrid;
+
 public class ExampleParentObject {
     
     @TransferGrid(editable = false)
