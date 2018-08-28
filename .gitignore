@@ -1,6 +1,5 @@
 /build/
 /dist/
-/test/
 
 # Created by https://www.gitignore.io/api/java,netbeans
 
@@ -55,4 +54,3 @@ nbproject/genfiles.properties
 .idea
 META-INF/MANIFEST.MF
 META-INF
-TransferGrid.iml
