@@ -7,7 +7,7 @@ The intention of this Library is to remove a lot of work that it usually takes t
 ## Table of content
 
 - [Releases](#Releases)
-- [Current Goals](#Current Goals)
+- [Current Goals](#Goals)
 - [HowTo](#HowTo)
 
 
@@ -21,7 +21,7 @@ Work is usually on hold for this library, unless there are breaking bugs or lack
 
 Team Pandora takes care of development of this repository.
 
-## Current Goals
+## Goals
 
 Current released version is stable and there are no features in the pipelines.
 If you have any suggestions/bugs, feel free to share them over [here](https://github.com/HephaistosCorp/Loki/issues/new)!
