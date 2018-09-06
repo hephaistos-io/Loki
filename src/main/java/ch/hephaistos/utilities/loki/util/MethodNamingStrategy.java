@@ -24,16 +24,15 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * Defines how a {@link Field} name is mapped to a label in the GUI.
- * 
- * @author I-Al-Istannen, : https://github.com/I-Al-Istannen
+ * Defines how a {@link java.lang.reflect.Method} name is mapped to a label in the GUI.
+ *
  */
-public interface FieldNamingStrategy {
+public interface MethodNamingStrategy {
 
   /**
-   * @param field The {@link Field} to transform
-   * @return The name of the field, according to this strategy
+   * @param method The {@link java.lang.reflect.Method} to transform
+   * @return The name of the method, according to this strategy
    */
-  String toString(Field field);
+  String toString(Method method);
 
 }

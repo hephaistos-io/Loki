@@ -29,14 +29,14 @@ import java.util.function.Function;
  * 
  * @author I-Al-Istannen, : https://github.com/I-Al-Istannen
  */
-public enum DefaultFieldNamingStrategy implements FieldNamingStrategy {
+public enum DefaultMethodNamingStrategy implements MethodNamingStrategy {
   /**
-   * {@link DefaultFieldNamingStrategy}.VERBATIM returns the name the Variable has
+   * {@link DefaultMethodNamingStrategy}.VERBATIM returns the name the Variable has
    */
-  VERBATIM(Field::getName),
+  VERBATIM(Method::getName),
 
   /**
-   * {@link DefaultFieldNamingStrategy}.SPLIT_TO_CAPITALIZED_WORDS returns the name split up and in CamelCase.
+   * {@link DefaultMethodNamingStrategy}.SPLIT_TO_CAPITALIZED_WORDS returns the name split up and in CamelCase.
    * Example:
    * int receiverPort turns into Receiver Port
    */
@@ -64,15 +64,14 @@ public enum DefaultFieldNamingStrategy implements FieldNamingStrategy {
     return output.toString();
   });
 
-  private Function<Field, String> transformationFunction;
+  private Function<Method, String> transformationFunction;
 
-  DefaultFieldNamingStrategy(Function<Field, String> transformationFunction) {
+  DefaultMethodNamingStrategy(Function<Method, String> transformationFunction) {
     this.transformationFunction = transformationFunction;
   }
 
   @Override
-  public String toString(Field field) {
-    return transformationFunction.apply(field);
+  public String toString(Method method) {
+    return transformationFunction.apply(method);
   }
-
 }

@@ -1,4 +1,4 @@
-package ch.hephaistos.utilities.loki.util.example;
+package ch.hephaistos.utilities.loki.Example;
 
 import ch.hephaistos.utilities.loki.util.annotations.TransferGrid;
 
