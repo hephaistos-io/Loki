@@ -21,6 +21,7 @@
 package ch.hephaistos.utilities.loki.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.function.Function;
 
 /**
@@ -73,4 +74,5 @@ public enum DefaultFieldNamingStrategy implements FieldNamingStrategy {
   public String toString(Field field) {
     return transformationFunction.apply(field);
   }
+
 }

@@ -21,6 +21,7 @@
 package ch.hephaistos.utilities.loki.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Defines how a {@link Field} name is mapped to a label in the GUI.
@@ -34,4 +35,5 @@ public interface FieldNamingStrategy {
    * @return The name of the field, according to this strategy
    */
   String toString(Field field);
+
 }

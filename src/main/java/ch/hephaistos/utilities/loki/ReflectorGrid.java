@@ -20,10 +20,9 @@
 
 package ch.hephaistos.utilities.loki;
 
-import ch.hephaistos.utilities.loki.util.DefaultFieldNamingStrategy;
-import ch.hephaistos.utilities.loki.util.FieldNamingStrategy;
-import ch.hephaistos.utilities.loki.util.LabelDisplayOrder;
+import ch.hephaistos.utilities.loki.util.*;
 import ch.hephaistos.utilities.loki.util.annotations.TransferGrid;
+import ch.hephaistos.utilities.loki.util.annotations.TransferMethod;
 import ch.hephaistos.utilities.loki.util.interfaces.ChangeListener;
 import ch.hephaistos.utilities.loki.util.statics.ReflectionHelper;
 import ch.hephaistos.utilities.loki.util.statics.ReflectionNodeCollection;
@@ -35,6 +34,8 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -86,7 +87,20 @@ public class ReflectorGrid extends GridPane{
      * <p>
      * {@link FieldNamingStrategy} for more information
      */
-    private FieldNamingStrategy namingConvention = DefaultFieldNamingStrategy.SPLIT_TO_CAPITALIZED_WORDS;
+    private FieldNamingStrategy fieldNamingConvention = DefaultFieldNamingStrategy.SPLIT_TO_CAPITALIZED_WORDS;
+
+    /**
+     * WRITE STUFF HERE
+     * This variable is used to set the way a Label is named. If it is set to
+     * <b>VERBATIM</b>, the label will keep the same name as the variable. If it
+     * is set to <b>SPLIT_TO_CAPITALIZED_WORDS</b>, it will work as in the
+     * following example:
+     * <p>
+     * portToSendTo -> Port To Send To
+     * <p>
+     * {@link MethodNamingStrategy} for more information
+     */
+    private MethodNamingStrategy methodNamingConvention = DefaultMethodNamingStrategy.SPLIT_TO_CAPITALIZED_WORDS;
 
     /**
      * Sets some normal formatting for the grid.
@@ -103,7 +117,7 @@ public class ReflectorGrid extends GridPane{
         this.setPadding(refGrid.getPadding());
         this.NODE_WIDTH_LIMIT = refGrid.getNodeWidth();
         this.displayOrder = refGrid.getDisplayOrder();
-        this.namingConvention = refGrid.getNamingConvention();
+        this.fieldNamingConvention = refGrid.getFieldNamingConvention();
     }
 
     public void transfromIntoGrid(Object object) {
@@ -144,6 +158,11 @@ public class ReflectorGrid extends GridPane{
                     insertionPosition = handleField(insertionPosition, field, gridObject);
                 }
             }
+            for (Method method : clazz.getDeclaredMethods()) {
+                if (hasMethodAnnotation(method)) {
+                    insertionPosition = handleMethod(insertionPosition, method, gridObject);
+                }
+            }
             clazz = clazz.getSuperclass();
         }
     }
@@ -160,7 +179,7 @@ public class ReflectorGrid extends GridPane{
      */
     private LabelDisplayOrder.InsertionPosition handleSubClassField(LabelDisplayOrder.InsertionPosition insertionPosition, Field field, Object subObject) {
         insertionPosition = addSeparator(insertionPosition, this);
-        insertionPosition = displayOrder.addNode(insertionPosition, new Label(namingConvention.toString(field) + ":"), this);
+        insertionPosition = displayOrder.addNode(insertionPosition, new Label(fieldNamingConvention.toString(field) + ":"), this);
         ReflectorGrid tempRefGrid = new ReflectorGrid(this);
         Object object = ReflectionHelper.getFieldValue(field, subObject);
         tempRefGrid.transfromIntoGrid(object);
@@ -211,13 +230,28 @@ public class ReflectorGrid extends GridPane{
     }
 
     /**
+     * WRITE STUFF HERE
+     * @param insertionPosition the position in which the Nodes for this field get inserted
+     * @param method the Field itself
+     * @param object the object to which the field belongs. This change was needed in case the Field
+     *               belongs to a subObject rather than the object itself.
+     * @return position for the next Node in the Grid
+     */
+    private LabelDisplayOrder.InsertionPosition handleMethod(LabelDisplayOrder.InsertionPosition insertionPosition, Method method, Object object) {
+        Pair<Label, Node> nodes = getNodePairForMethod(method, object);
+        return insertionPosition = displayOrder
+                .addNode(insertionPosition, nodes.getKey(), nodes.getValue(), this);
+    }
+
+
+    /**
      * Creates a Pair of a Label as well as an InputField for normal declared Fields.
      * @param field the field itself
      * @param handle the object it belongs to
      * @return a Pair<> consisting of a Label with the Fieldname as well as an InputField
      */
     private Pair<Label, Node> getNodePairForField(Field field, Object handle) {
-        Label label = new Label(namingConvention.toString(field));
+        Label label = new Label(fieldNamingConvention.toString(field));
         Control node;
         TransferGrid annotation = field.getAnnotation(TransferGrid.class);
 
@@ -253,6 +287,47 @@ public class ReflectorGrid extends GridPane{
     }
 
     /**
+     * WRITE STUFF HERE
+     * @param method the field itself
+     * @param handle the object it belongs to
+     * @return a Pair<> consisting of a Label with the Fieldname as well as an InputField
+     */
+    private Pair<Label, Node> getNodePairForMethod(Method method, Object handle) {
+        Label label = new Label(methodNamingConvention.toString(method));
+        Control node;
+        TransferMethod annotation = method.getAnnotation(TransferMethod.class);
+
+        node = new Button(annotation.name());
+        node.setDisable(!annotation.enabled());
+        ((Button) node).setOnAction( eg -> {
+            try{
+                if(method.isAccessible()){
+                    method.invoke(handle);
+                } else {
+                    method.setAccessible(true);
+                    method.invoke(handle);
+                    method.setAccessible(false);
+                }
+            } catch (IllegalAccessException ieA) {
+                System.out.println("Cannot access method: " + method.getName() + " error: " + ieA.getMessage());
+            } catch (InvocationTargetException itE) {
+                System.out.println("Could not invoke method: " + method.getName() + " error: " + itE.getMessage());
+            }
+        } );
+
+        if(!annotation.tooltip().isEmpty()) {
+            Tooltip tempTip = new Tooltip(annotation.tooltip());
+            tempTip.setWrapText(true);
+            label.setTooltip(tempTip);
+        }
+
+        adjustNodeProperties(annotation, node);
+
+        return new Pair<>(label, node);
+
+    }
+
+    /**
      * This method is used internally to set if a field is editable or not.
      * @param annotation the annotation of said field; is needed to determine if it can be edited or not
      * @param node the node which is supposed to be set according to the annotation
@@ -262,6 +337,16 @@ public class ReflectorGrid extends GridPane{
         node.setMouseTransparent(!annotation.editable());
         node.setFocusTraversable(annotation.editable());
 
+        node.setMaxWidth(NODE_WIDTH_LIMIT);
+    }
+
+    /**
+     * WRITE SOMETHING HERE
+     * This method is used internally to set if a field is editable or not.
+     * @param annotation the annotation of said field; is needed to determine if it can be edited or not
+     * @param node the node which is supposed to be set according to the annotation
+     */
+    private void adjustNodeProperties(TransferMethod annotation, Control node) {
         node.setMaxWidth(NODE_WIDTH_LIMIT);
     }
 
@@ -294,6 +379,15 @@ public class ReflectorGrid extends GridPane{
      */
     private boolean shouldTransferToGrid(Field field) {
         return field.isAnnotationPresent(TransferGrid.class);
+    }
+
+    /**
+     * WRITE SOMETHING
+     * @param method the field to be checked
+     * @return if it is annoted with <b>@TransferMethod</b>
+     */
+    private boolean hasMethodAnnotation(Method method) {
+        return method.isAnnotationPresent(TransferMethod.class);
     }
 
     private void setMaxWidth(TextInputControl field) {
@@ -348,7 +442,11 @@ public class ReflectorGrid extends GridPane{
      *                            strategies.
      */
     public void setFieldNamingStrategy(FieldNamingStrategy fieldNamingStrategy) {
-        namingConvention = fieldNamingStrategy;
+        fieldNamingConvention = fieldNamingStrategy;
+    }
+
+    public void setMethodNamingConvention(MethodNamingStrategy methodNamingStrategy) {
+        methodNamingConvention = methodNamingStrategy;
     }
 
     private double getNodeWidth() {
@@ -359,9 +457,15 @@ public class ReflectorGrid extends GridPane{
         return displayOrder;
     }
 
-    private FieldNamingStrategy getNamingConvention() {
-        return namingConvention;
+    private FieldNamingStrategy getFieldNamingConvention() {
+        return fieldNamingConvention;
     }
+
+    private MethodNamingStrategy getMethodNamingConvention() {
+        return methodNamingConvention;
+    }
+
+
 
     /**
      * Use this function to add an object, for example from the GUI, to be called every time a value

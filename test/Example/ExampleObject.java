@@ -1,6 +1,7 @@
-package ch.hephaistos.utilities.loki.util.example;
+package ch.hephaistos.utilities.loki.Example;
 
 
+import ch.hephaistos.utilities.loki.util.annotations.TransferMethod;
 import ch.hephaistos.utilities.loki.util.annotations.TransferGrid;
 import ch.hephaistos.utilities.loki.util.interfaces.ObjectChangeListener;
 
@@ -35,6 +36,16 @@ public class ExampleObject extends ExampleParentObject implements ObjectChangeLi
     public ExampleObject() {
         super("ExampleName");
         data = new ExampleDataObject(8090, "127.0.0.1", "hello\n");
+    }
+
+    @TransferMethod(name = "Press Me!")
+    public void testFunction () {
+        System.out.println("You pressed a button!");
+    }
+
+    @TransferMethod(name = "Disabled!", enabled = false, tooltip = "This is an explanation of what happens when you press the button")
+    public void disabledFunction () {
+        System.out.println("You pressed a button!");
     }
 
     @Override
