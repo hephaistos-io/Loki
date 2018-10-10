@@ -37,6 +37,8 @@ public interface ChangeListener {
      * Application.
      *
      * @param field The field of the object that was updated
+     * @param oldValue The previous value the field was set to
+     * @param newValue The newly set value
      * @param object The object that was updated
      */
     void onObjectValueChanged(Field field, Object oldValue, Object newValue, Object object);

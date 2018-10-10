@@ -140,6 +140,8 @@ public class ReflectionHelper {
      * Due to there being a risk of an unhandled exception with the Reflective invokation of the update method,
      * they are done last so that at least the interfaces can receive an update.
      *
+     * @param oldValue The previous value of the field
+     * @param newValue The new value for the field
      * @param object the object that had its value changed
      * @param field is the field that was changed
      */
