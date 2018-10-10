@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -92,36 +93,38 @@ public class ReflectionHelper {
     }
 
     /**
-     * Sets the value of a field.
+     * Sets the newValue of a field.
      * This function calls the objects that implemented the corresponding listeners.
      * The Listeners get called the following way:
      *
      * 1. ObjectChangeListener
      * 2. ChangeListener
      *
-     * This means, that after a value has been changed using reflection, the update function of the object gets
+     * This means, that after a newValue has been changed using reflection, the update function of the object gets
      * called first.
      *
      * This is so that one can make sure the object runs its necessary functions before the GUI starts
      * updating itself.
      *
-     * @param field  The {@link Field} to set the value for.
+     * @param field  The {@link Field} to set the newValue for.
      * @param object The object object to use (according to
      * {@link Field#set(Object, Object)})
-     * @param value  The value to set it to
+     * @param newValue  The newValue to set it to
      * @throws ReflectionHelperException if any
      * {@link ReflectiveOperationException} occurs.
      */
-    public static void setFieldValue(Field field, Object object, Object value) {
+    public static void setFieldValue(Field field, Object object, Object newValue) {
         try {
             field.setAccessible(true);
-            field.set(object, value);
+            Object oldValue = field.get(object);
+            field.set(object, newValue);
 
             if(object instanceof ObjectChangeListener){
                 ((ObjectChangeListener) object).onFieldValueChanged(field);
             }
 
-            notifyListeners(field, object);
+
+            notifyListeners(field, newValue, oldValue, object);
 
         } catch (ReflectiveOperationException e) {
             throw new ReflectionHelperException(e);
@@ -140,8 +143,8 @@ public class ReflectionHelper {
      * @param object the object that had its value changed
      * @param field is the field that was changed
      */
-    public static void notifyListeners(Field field, Object object){
-        for(ChangeListener i : interfacesToInvoke){i.onObjectValueChanged(field, object);}
+    public static void notifyListeners(Field field, Object oldValue, Object newValue, Object object){
+        for(ChangeListener i : interfacesToInvoke){i.onObjectValueChanged(field, oldValue, newValue, object);}
     }
 
     public static class ReflectionHelperException extends RuntimeException {

@@ -39,6 +39,6 @@ public interface ChangeListener {
      * @param field The field of the object that was updated
      * @param object The object that was updated
      */
-    void onObjectValueChanged(Field field, Object object);
+    void onObjectValueChanged(Field field, Object oldValue, Object newValue, Object object);
 
 }
