@@ -124,7 +124,7 @@ public class ReflectionHelper {
             }
 
 
-            notifyListeners(field, newValue, oldValue, object);
+            notifyListeners(field, oldValue, newValue, object);
 
         } catch (ReflectiveOperationException e) {
             throw new ReflectionHelperException(e);
