@@ -1,5 +1,7 @@
 # Loki
 
+[![](https://jitpack.io/v/HephaistosCorp/Loki.svg)](https://jitpack.io/#HephaistosCorp/Loki)
+
 Loki is a powerful, simple to use library that uses annotations to help you edit them in a GUI.
 
 The intention of this Library is to remove a lot of work that it usually takes to create a GUI Element, in which you can edit values of an object.
