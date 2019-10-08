@@ -1,4 +1,4 @@
-package ch.hephaistos.utilities.loki.Example;
+package Example;
 
 import ch.hephaistos.utilities.loki.ReflectorGrid;
 import ch.hephaistos.utilities.loki.util.DefaultFieldNamingStrategy;
@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Field;
-import ch.hephaistos.utilities.loki.Example.ExampleObject;
 
 /**
  * A small Example main class...
