@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ch.hephaistos.utilities.loki</groupId>
     <artifactId>loki</artifactId>
-    <version>1.9.2</version>
+    <version>1.9.5</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
