@@ -44,4 +44,4 @@ If you have any suggestions/bugs, feel free to share them over [here](https://gi
 
 There is a folder containing an example project where all possible features are implemented. You can check it out over [here](https://github.com/HephaistosCorp/Loki/tree/master/test/Example). You will find every use case for every feature inside of those classes.
 
-For more information as well as the documentation, follow [this](https://hephaistoscorp.github.io/Loki/javaDoc/index.html) link.
+For more information as well as the documentation, follow [this](https://hephaistos-io.github.io/Loki/javaDoc/index.html) link.
