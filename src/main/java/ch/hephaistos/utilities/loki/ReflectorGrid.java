@@ -1,21 +1,25 @@
 /**
-
- Loki is an easy to use library that transforms simple annotations into a powerful GUI
- Copyright (C) 2018 Ricardo Simoes
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU Affero General Public License as published
- by the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Affero General Public License for more details.
-
- You should have received a copy of the GNU Affero General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+ * The MIT License
+ *
+ * Copyright (c) 2019 Ricardo Daniel Monteiro Simoes
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 package ch.hephaistos.utilities.loki;
@@ -42,8 +46,8 @@ import java.util.Objects;
 /**
  * This class is used in conjunction with TransferGrid.java and enables a user
  * to generate a GridPane with labels and TextFields/ComboBoxes/TextAreas for
- * variables used in an Object. This also supports variables from inhereted
- * classes, aswell as private variables.
+ * variables used in an Object and also Buttons to directly call functions.
+ * This also supports variables from inherited classes, as well as private variables.
  *
  * Please make sure you know the possibilities that @TransferGrid enables,
  * before letting the end user change variables he is not supposed to.
@@ -51,11 +55,11 @@ import java.util.Objects;
  * This class uses the JavaFX GridPane and due to the way it is built, you only
  * need one class to generate a Grid. If the object changes to another object
  * you want to show the Variables of, you can just call turnObjectIntoGrid()
- * again. Due to the nature of JavaFX it will automaticly update the Grid on
+ * again. Due to the nature of JavaFX it will automatically update the Grid on
  * your GUI.
  *
  * @author Ricardo Daniel Monteiro Simoes
- * <b>Autho of some nifty little tricks:</b> I-Al-Istannen, : https://github.com/I-Al-Istannen
+ * <b>Author of some nifty little tricks:</b> I-Al-Istannen, : https://github.com/I-Al-Istannen
  */
 public class ReflectorGrid extends GridPane{
 
@@ -72,13 +76,13 @@ public class ReflectorGrid extends GridPane{
     private LabelDisplayOrder displayOrder = LabelDisplayOrder.SIDE_BY_SIDE;
 
     /**
-     * This variable is used to determine the max width of the editable fields.
+     * This variable determines the max width of the editable fields.
      * Standard is set to 300.
      */
     private double NODE_WIDTH_LIMIT = 300;
 
     /**
-     * This variable is used to set the way a Label is named. If it is set to
+     * Sets the Naming Strategy for all fields. If it is set to
      * <b>VERBATIM</b>, the label will keep the same name as the variable. If it
      * is set to <b>SPLIT_TO_CAPITALIZED_WORDS</b>, it will work as in the
      * following example:
@@ -90,20 +94,14 @@ public class ReflectorGrid extends GridPane{
     private FieldNamingStrategy fieldNamingConvention = DefaultFieldNamingStrategy.SPLIT_TO_CAPITALIZED_WORDS;
 
     /**
-     * WRITE STUFF HERE
-     * This variable is used to set the way a Label is named. If it is set to
-     * <b>VERBATIM</b>, the label will keep the same name as the variable. If it
-     * is set to <b>SPLIT_TO_CAPITALIZED_WORDS</b>, it will work as in the
-     * following example:
-     * <p>
-     * portToSendTo -> Port To Send To
-     * <p>
+     * This behaves just like {@link #fieldNamingConvention}, except that its used for
+     * the naming of functions.
      * {@link MethodNamingStrategy} for more information
      */
     private MethodNamingStrategy methodNamingConvention = DefaultMethodNamingStrategy.SPLIT_TO_CAPITALIZED_WORDS;
 
     /**
-     * Sets some normal formatting for the grid.
+     * Sets a standard formatting for the GridPane.
      */
     public ReflectorGrid() {
         this.setHgap(5);
@@ -111,6 +109,14 @@ public class ReflectorGrid extends GridPane{
         this.setPadding(new Insets(10, 10, 10, 10));
     }
 
+    /**
+     *
+     * Takes in an already existing ReflectorGrid and sets the GridPane settings to be equal.
+     * This is only used during recursive generation for the Grid, for example for classes that
+     * extend another class.
+     *
+     * @param refGrid
+     */
     public ReflectorGrid(ReflectorGrid refGrid) {
         this.setHgap(refGrid.getHgap());
         this.setVgap(refGrid.getVgap());
@@ -120,19 +126,25 @@ public class ReflectorGrid extends GridPane{
         this.fieldNamingConvention = refGrid.getFieldNamingConvention();
     }
 
-    public void transfromIntoGrid(Object object) {
+
+    /**
+     * Transforms the given Object into a GridPane according to the set annotations
+     * inside the object.
+     *
+     * @param object
+     */
+    public void transformIntoGrid(Object object) {
         Objects.requireNonNull(object, "The received Object is null!");
         setGridObject(object);
         generateGrid();
-        //return this;
     }
 
 
     /**
      * This Method can be used externally to regenerate the Grid.
-     * This is supposed to be used when you do Layoutchanges after generating the Grid.
+     * This is supposed to be used when you do changes to the layout after generating the Grid.
      */
-    public void redoGrid() {
+    public void refresh() {
         generateGrid();
     }
 
@@ -141,9 +153,7 @@ public class ReflectorGrid extends GridPane{
     }
 
     /**
-     * This function starts all necessary functions to generate the grid and returns it.
-     *
-     * @return The finished Grid for the given Object.
+     * This function starts all necessary functions to generate the grid.
      */
     private void generateGrid() {
         clearGrid();
@@ -169,8 +179,9 @@ public class ReflectorGrid extends GridPane{
 
     /**
      * This Function handles the use case, when an Object contains an Object in itself.
-     * If annoted correctly, it will create a new TransferGrid for said "sub-object" and then take its Nodes and add them
-     * to this GridPane. It also adds in a "separator" with the Name of the object in the parent object.
+     * If annotated correctly, it will create a new TransferGrid for said "sub-object" and then
+     * take its Nodes and add them to this GridPane. It also adds in a
+     * "separator" with the Name of the object in the parent object.
      *
      * @param insertionPosition
      * @param field
@@ -182,7 +193,7 @@ public class ReflectorGrid extends GridPane{
         insertionPosition = displayOrder.addNode(insertionPosition, new Label(fieldNamingConvention.toString(field) + ":"), this);
         ReflectorGrid tempRefGrid = new ReflectorGrid(this);
         Object object = ReflectionHelper.getFieldValue(field, subObject);
-        tempRefGrid.transfromIntoGrid(object);
+        tempRefGrid.transformIntoGrid(object);
         insertionPosition =  addGridElements(insertionPosition, tempRefGrid);
         return addSeparator(insertionPosition, this);
     }
@@ -197,7 +208,7 @@ public class ReflectorGrid extends GridPane{
      * @param position The starting position for the positioning of the Nodes in
      *                 the main GridPane
      * @param gridToAdd The GridPane of the subObject
-     * @return returns the position for the next node in the GridPane
+     * @return
      */
     protected LabelDisplayOrder.InsertionPosition addGridElements(LabelDisplayOrder.InsertionPosition position, GridPane gridToAdd) {
         Label label = null;
@@ -213,7 +224,7 @@ public class ReflectorGrid extends GridPane{
     }
 
     /**
-     * This function handles a single Field. It looks if the field is a normal field or a subObject-
+     * This function handles a single Field. It looks if the field is a normal field or a subObject
      * @param insertionPosition the position in which the Nodes for this field get inserted
      * @param field the Field itself
      * @param object the object to which the field belongs. This change was needed in case the Field
@@ -230,7 +241,8 @@ public class ReflectorGrid extends GridPane{
     }
 
     /**
-     * WRITE STUFF HERE
+     * Defines the position for Nodes
+     *
      * @param insertionPosition the position in which the Nodes for this field get inserted
      * @param method the Field itself
      * @param object the object to which the field belongs. This change was needed in case the Field
@@ -246,6 +258,7 @@ public class ReflectorGrid extends GridPane{
 
     /**
      * Creates a Pair of a Label as well as an InputField for normal declared Fields.
+     *
      * @param field the field itself
      * @param handle the object it belongs to
      * @return a Pair<> consisting of a Label with the Fieldname as well as an InputField
@@ -287,7 +300,9 @@ public class ReflectorGrid extends GridPane{
     }
 
     /**
-     * WRITE STUFF HERE
+     * Creates a Pair containing the Label as well as the Button to call a function.2
+     *
+     *
      * @param method the field itself
      * @param handle the object it belongs to
      * @return a Pair<> consisting of a Label with the Fieldname as well as an InputField
@@ -321,7 +336,7 @@ public class ReflectorGrid extends GridPane{
             label.setTooltip(tempTip);
         }
 
-        adjustNodeProperties(annotation, node);
+        adjustNodeProperties(node);
 
         return new Pair<>(label, node);
 
@@ -341,12 +356,10 @@ public class ReflectorGrid extends GridPane{
     }
 
     /**
-     * WRITE SOMETHING HERE
-     * This method is used internally to set if a field is editable or not.
-     * @param annotation the annotation of said field; is needed to determine if it can be edited or not
-     * @param node the node which is supposed to be set according to the annotation
+     * Adjust the maxWidth of the given node.
+     * @param node
      */
-    private void adjustNodeProperties(TransferMethod annotation, Control node) {
+    private void adjustNodeProperties(Control node) {
         node.setMaxWidth(NODE_WIDTH_LIMIT);
     }
 

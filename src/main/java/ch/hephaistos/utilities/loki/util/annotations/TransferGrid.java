@@ -1,21 +1,25 @@
 /**
-
- Loki is an easy to use library that transforms simple annotations into a powerful GUI
- Copyright (C) 2018 Ricardo Simoes
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU Affero General Public License as published
- by the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Affero General Public License for more details.
-
- You should have received a copy of the GNU Affero General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+ * The MIT License
+ *
+ * Copyright (c) 2019 Ricardo Daniel Monteiro Simoes
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 package ch.hephaistos.utilities.loki.util.annotations;
@@ -31,10 +35,10 @@ import java.lang.annotation.*;
  * using a <b>TextField</b> or <b>TextArea</b>.
  * 
  * <b>editable</b> is used to define if a variable is read only or can 
- * also be written to.
+ * also be written to. This can and will <b>bypass</b> fields set to private!
  * 
  * <b>options</b> is used, once filled, to create a comboBox for the variable.
- * This is, in terms of hierarchy, above the <b>fieldtype</b> enum. As soon as
+ * This is, in terms of hierarchy, above the <b>FieldType</b> enum. As soon as
  * you fill something into options, the field for the corresponding variable
  * turns into a ComboBox.
  * 
@@ -50,6 +54,9 @@ public @interface TransferGrid {
     /**
      * This defines the possible options for the
      * TextInputField.
+     *
+     * <b>TEXT_FIELD</b> generates a single-line input field
+     * <b>TEXT_AREA</b> generates a multiple-line input field
      */
     enum Fieldtype{
         TEXT_FIELD, TEXT_AREA
@@ -60,18 +67,22 @@ public @interface TransferGrid {
      * default is set to true.
      * true == write/read
      * false == read only
+     * <b>This can and will bypass fields set to private!</b>
      * @return if it is editable or not
      */
     public boolean editable () default true;
 
     /**
-     * This defines if the variable is supposed to be set using a ComboBox.
-     * This is above <b>fieldtype</b>. If you give options any input, it will
-     * turn into a ComboBox, no matter the setting in <b>fieldtype</b>
+     * Defines if the variable uses a ComboBox for setting a value.
+     * This is above <b>FieldType</b>. If you give options any input, it will
+     * turn into a ComboBox, no matter the setting in <b>FieldType</b>
      * 
      * To set this variable, please make use of a normal String array.
      * <b>Example:</b>
-     * TransferGrid(options = {"full", "half", "none"});
+     * {@code
+     * @TransferGrid(options = {"you", "are", "nice"})
+     * private String choiceForYou = "you";
+     * }
      * 
      * @return Stringarray of all options.
      */

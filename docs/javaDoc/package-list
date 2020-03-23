@@ -1,6 +1,7 @@
-ch.rs.reflectorgrid
-ch.rs.reflectorgrid.util
-ch.rs.reflectorgrid.util.annotations
-ch.rs.reflectorgrid.util.interfaces
-ch.rs.reflectorgrid.util.statics
-ch.rs.reflectorgrid.util.typeconversion
+Example
+ch.hephaistos.utilities.loki
+ch.hephaistos.utilities.loki.util
+ch.hephaistos.utilities.loki.util.annotations
+ch.hephaistos.utilities.loki.util.interfaces
+ch.hephaistos.utilities.loki.util.statics
+ch.hephaistos.utilities.loki.util.typeconversion

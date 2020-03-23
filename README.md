@@ -1,6 +1,16 @@
 # Loki
 
-[![](https://jitpack.io/v/HephaistosCorp/Loki.svg)](https://jitpack.io/#HephaistosCorp/Loki)
+### JitPack usage will be terminated for newer version.
+
+As off now I will start using GitHub Packages to distribute this library as a Maven Dependency. Want the newest Version? Here you go:
+
+```xml
+<dependency>
+  <groupId>com.github.hephaistos-io/loki</groupId>
+  <artifactId>ch.hephaistos.utilities.loki</artifactId>
+  <version>1.9.5-prerelease</version>
+</dependency>
+```
 
 Loki is a powerful, simple to use library that uses annotations to help you edit them in a GUI.
 
@@ -34,4 +44,4 @@ If you have any suggestions/bugs, feel free to share them over [here](https://gi
 
 There is a folder containing an example project where all possible features are implemented. You can check it out over [here](https://github.com/HephaistosCorp/Loki/tree/master/test/Example). You will find every use case for every feature inside of those classes.
 
-For more information as well as the documentation, follow [this](https://hephaistoscorp.github.io/Loki/javaDoc/index.html) link.
+For more information as well as the documentation, follow [this](https://hephaistos-io.github.io/Loki/javaDoc/index.html) link.

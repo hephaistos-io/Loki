@@ -1,4 +1,4 @@
-package ch.hephaistos.utilities.loki.Example;
+package Example;
 
 import ch.hephaistos.utilities.loki.ReflectorGrid;
 import ch.hephaistos.utilities.loki.util.DefaultFieldNamingStrategy;
@@ -18,12 +18,13 @@ public class ExampleMain extends Application implements ChangeListener {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ExampleObject exampleObject = new ExampleObject();
+        ExampleObject exampleObject
+                = new ExampleObject();
         ReflectorGrid reflectorGrid = new ReflectorGrid();
         reflectorGrid.setFieldNamingStrategy(DefaultFieldNamingStrategy.SPLIT_TO_CAPITALIZED_WORDS);
         reflectorGrid.setLabelDisplayOrder(LabelDisplayOrder.SIDE_BY_SIDE);
 
-        reflectorGrid.transfromIntoGrid(exampleObject);
+        reflectorGrid.transformIntoGrid(exampleObject);
 
         reflectorGrid.addChangeListener(this);
 
@@ -40,7 +41,8 @@ public class ExampleMain extends Application implements ChangeListener {
     }
 
     @Override
-    public void onObjectValueChanged(Field field, Object object) {
-        System.out.println(field.getName() + " of object " + object.getClass().getName() + " was updated ");
+    public void onObjectValueChanged(Field field, Object oldValue, Object newValue, Object object) {
+        System.out.println("Field: " + field.getName() + " changed its value from " +
+                oldValue.toString() + " to " + newValue.toString() + " in object " + object.toString());
     }
 }
