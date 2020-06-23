@@ -52,3 +52,11 @@ If you have any suggestions/bugs, feel free to share them over [here](https://gi
 There is a folder containing an example project where all possible features are implemented. You can check it out over [here](https://github.com/HephaistosCorp/Loki/tree/master/test/Example). You will find every use case for every feature inside of those classes.
 
 For more information as well as the documentation, follow [this](https://hephaistos-io.github.io/Loki/javaDoc/index.html) link.
+
+## Usage Examples
+
+As far as my knowledge goes, this library is being used in a project from user [triggerbiggo](https://github.com/tiggerbiggo).
+He uses it in [Prima](https://github.com/tiggerbiggo/Prima) to allow the user to change values of the nodes in the image generation:
+![Prima screenshot](https://media.discordapp.net/attachments/401528956702162956/544517318663995403/unknown.png)
+
+
