@@ -26,12 +26,19 @@ The intention of this Library is to remove a lot of work that it usually takes t
 
 ## Releases
 
-You can find all releases over [here](https://github.com/HephaistosCorp/Loki/releases)
-All releases are at the same time released as maven objects, that can be found over at [jitpack.io](https://jitpack.io)
+You can find all releases over [here](https://github.com/hephaistos-io/Loki/packages)
+
+You can use this library with maven and the following dependency:
+
+```xml
+<dependency>
+  <groupId>ch.hephaistos.utilities</groupId>
+  <artifactId>loki</artifactId>
+  <version>1.9.9</version>
+</dependency>
+```
 
 Work is usually on hold for this library, unless there are breaking bugs or lack of an obvious feature.
-
-Team Pandora takes care of development of this repository.
 
 ## Goals
 
