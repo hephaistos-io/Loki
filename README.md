@@ -1,14 +1,14 @@
 # Loki
 
-### JitPack usage will be terminated for newer version.
+### This is on GitHub Packages now!
 
 As off now I will start using GitHub Packages to distribute this library as a Maven Dependency. Want the newest Version? Here you go:
 
 ```xml
 <dependency>
-  <groupId>com.github.hephaistos-io/loki</groupId>
-  <artifactId>ch.hephaistos.utilities.loki</artifactId>
-  <version>1.9.5-prerelease</version>
+  <groupId>ch.hephaistos.utilities</groupId>
+  <artifactId>loki</artifactId>
+  <version>1.9.9</version>
 </dependency>
 ```
 
