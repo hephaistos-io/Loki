@@ -39,13 +39,14 @@ import java.lang.reflect.Field;
  *
  * <b>Example:</b>
  *
- * {@code
+ *<pre> <code>
+ * {
  * public class ExampleMain extends Application implements ChangeListener {
  *      ReflectorGrid reflectorGrid = new ReflectorGrid();
  *      ...
  *      reflectorGrid.addChangeListener(this);
  *
- *      @Override
+ *      {@literal @}Override
  *      public void onObjectValueChanged(Field field, Object oldValue, Object newValue, Object object) {
  *          System.out.println("Field: " + field.getName() + " changed its value from " +
  *          oldValue.toString() + " to " + newValue.toString() + " in object " + object.toString());
@@ -53,6 +54,8 @@ import java.lang.reflect.Field;
  * }
  *
  * }
+ * </code> </pre>
+
  *
  * @author Ricardo Daniel Monteiro Simoes
  */

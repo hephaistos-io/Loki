@@ -38,16 +38,20 @@ import java.lang.annotation.*;
  * <b>name()</b> sets the name to be displayed in the button.
  *
  * <b>Example</b>
- * {@code
- * @TransferGrid(tooltip = "Defines the runtime of this application")
+ *
+ * <pre> <code>
+ * {
+ * {@literal @}TransferGrid(tooltip = "Defines the runtime of this application")
  * private ExampleEnum option = ExampleEnum.FULL;
  *
- * @TransferGrid
+ * {@literal @}TransferGrid
  * private ExampleDataObject data;
  *
- * @TransferGrid(editable = false)
+ * {@literal @}TransferGrid(editable = false)
  * private String uneditableForYou = "blocked";
  * }
+ * </code> </pre>
+ *
  *
  * This generates a Grid with a button named "Press Me!". It will have no tooltip,
  * and upon pressing it, the function will be executed.
@@ -64,9 +68,7 @@ public @interface TransferMethod {
     /**
      * This defines if the button is enabled or not.
      * default is set to true.
-     * true => calls function
-     * false => does nothing
-     * @return
+     * @return the set value
      */
     public boolean enabled() default true;
 

@@ -115,7 +115,7 @@ public class ReflectorGrid extends GridPane{
      * This is only used during recursive generation for the Grid, for example for classes that
      * extend another class.
      *
-     * @param refGrid
+     * @param refGrid Represents an existing reflector grid, from which the settings will be taken
      */
     public ReflectorGrid(ReflectorGrid refGrid) {
         this.setHgap(refGrid.getHgap());
@@ -131,7 +131,7 @@ public class ReflectorGrid extends GridPane{
      * Transforms the given Object into a GridPane according to the set annotations
      * inside the object.
      *
-     * @param object
+     * @param object object that the UI will represent
      */
     public void transformIntoGrid(Object object) {
         Objects.requireNonNull(object, "The received Object is null!");
@@ -208,7 +208,7 @@ public class ReflectorGrid extends GridPane{
      * @param position The starting position for the positioning of the Nodes in
      *                 the main GridPane
      * @param gridToAdd The GridPane of the subObject
-     * @return
+     * @return returns the position where the element shall be inserted
      */
     protected LabelDisplayOrder.InsertionPosition addGridElements(LabelDisplayOrder.InsertionPosition position, GridPane gridToAdd) {
         Label label = null;

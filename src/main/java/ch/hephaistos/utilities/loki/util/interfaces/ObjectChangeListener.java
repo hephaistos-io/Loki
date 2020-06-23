@@ -36,16 +36,18 @@ import java.lang.reflect.Field;
  * you want to do some specific calculations after a value changes, you can use this interface for that.
  *
  * <b>Example:</b>
- *
- * {@code
+ *  <pre> <code>
+ * {
  * public class ExampleObject implements ObjectChangeListener {
- *     @Override
+ *      {@literal @}Override
  *     public void onFieldValueChanged(Field field) {
  *         System.out.println(field.getName() + " was updated!");
  *     }
  * }
  *
  * }
+ *  </code> </pre>
+
  *
  * @author Ricardo Daniel Monteiro Simoes
  */

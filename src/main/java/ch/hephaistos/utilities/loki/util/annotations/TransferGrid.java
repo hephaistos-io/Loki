@@ -79,12 +79,15 @@ public @interface TransferGrid {
      * 
      * To set this variable, please make use of a normal String array.
      * <b>Example:</b>
-     * {@code
-     * @TransferGrid(options = {"you", "are", "nice"})
+     *
+     * <pre> <code>
+     * {
+     *  {@literal @}TransferGrid(options = {"you", "are", "nice"})
      * private String choiceForYou = "you";
      * }
+     * </code> </pre>
      * 
-     * @return Stringarray of all options.
+     * @return String[] of all options.
      */
     public String[] options () default {};
     
