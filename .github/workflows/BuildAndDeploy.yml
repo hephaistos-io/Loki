@@ -18,12 +18,12 @@ jobs:
            java-package: jdk+fx
 
        - name: Build with Maven
-         run: mvn clean package -DskipTests --file pom.xml
+         run: mvn -B clean package -DskipTests --file pom.xml
 
        - name: Run unit tests
-         run: mvn test --file pom.xml
+         run: mvn -B test --file pom.xml
 
        - name: Deploy to GitHub packages
-         run: mvn deploy --file pom.xml
+         run: mvn -B deploy --file pom.xml
          env:
             github-token: ${{secrets.GITHUB_TOKEN}}
