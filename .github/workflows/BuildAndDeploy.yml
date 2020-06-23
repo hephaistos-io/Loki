@@ -25,4 +25,4 @@ jobs:
        - name: Deploy to GitHub packages
          run: mvn -B deploy --file pom.xml
          env:
-            github-token: ${{DEPLOYMENT_TOKEN}}
+            github-token: ${{secrets.DEPLOYMENT_TOKEN}}
