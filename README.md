@@ -1,5 +1,7 @@
 # Loki
 
+Old repository: https://github.com/RicardoMonteiroSimoes/TransferGrid
+
 ### This is on GitHub Packages now!
 
 As off now I will start using GitHub Packages to distribute this library as a Maven Dependency. Want the newest Version? Here you go:
