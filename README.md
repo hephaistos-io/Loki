@@ -59,6 +59,6 @@ For more information as well as the documentation, follow [this](https://hephais
 
 As far as my knowledge goes, this library is being used in a project from user [triggerbiggo](https://github.com/tiggerbiggo).
 He uses it in [Prima](https://github.com/tiggerbiggo/Prima) to allow the user to change values of the nodes in the image generation:
-![Prima screenshot](https://media.discordapp.net/attachments/401528956702162956/544517318663995403/unknown.png)
+![Prima screenshot](https://github.com/user-attachments/assets/034aa0ab-9469-4fdc-b318-652af0db9e6a)
 
 
