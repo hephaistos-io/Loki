@@ -1,4 +1,4 @@
-# Loki
+# Loki - Currently not being maintained
 
 Old repository: https://github.com/RicardoMonteiroSimoes/TransferGrid
 
